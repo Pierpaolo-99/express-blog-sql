@@ -6,15 +6,9 @@ const postsController = require('../controllers/postsController')
 
 router.get('/', postsController.index);
 
-router.get('/:slug', postsController.show);
+router.get('/:id', postsController.show);
 
-router.post('/', postsController.create);
-
-router.put('/:slug', postsController.update);
-
-router.patch('/:slug', postsController.modify);
-
-router.delete('/:slug', postsController.destroy);
+router.delete('/:id', postsController.destroy);
 
 // export router
 module.exports = router
