@@ -36,7 +36,9 @@ function show(req, res) {
         connection.query(sqlJoin, [postId], (err, tagResults) => {
             if (err) return res.status(500).json({ message: 'Query failer' });
 
-            post.tags = tagResults
+            const tagLabels = tagResults.map(tag => tag.label);
+
+            post.tags = tagLabels
 
             res.json(post)
         })
