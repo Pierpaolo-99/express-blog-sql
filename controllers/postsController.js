@@ -16,7 +16,7 @@ function index(req, res) {
 
 function show(req, res) {
 
-    const id = req.params.id
+    const id = Number(req.params.id)
 
     const sql = 'SELECT * FROM posts WHERE id = ?'
 
@@ -29,24 +29,14 @@ function show(req, res) {
 
 function destroy(req, res) {
 
-    const postSlug = req.params.slug
+    const postId = Number(req.params.id)
 
-    // find the pizza with the slug
-    const post = posts.find(post => post.slug === postSlug);
+    const sql = 'DELETE FROM posts WHERE id = ?'
 
-    // handle 404 error
-    if (!post) {
-        return res.status(404).json({
-            error: '404 not found',
-            message: 'post not found'
-        })
-    };
-
-    // remove the post
-    posts.splice(posts.indexOf(post), 1);
-    res.sendStatus(204);
-
-    console.log(posts);
+    connection.query(sql, [postId], (err) => {
+        if (err) return res.status(500).json({ message: 'query failed' });
+        res.sendStatus(204)
+    })
 }
 
 module.exports = {
